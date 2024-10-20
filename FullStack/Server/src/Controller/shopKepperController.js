@@ -1,11 +1,11 @@
 const {errorHandling} = require('../ErrorHandling/errorHandling')
-const adminModel = require('../models/adminModel')
-const userModel = require('../models/userModel')
+const shopKepperModel = require('../models/shopKeppermodel')
+// const userModel = require('../models/userModel')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 require('dotenv').config()
 
-exports.createAdmin = async (req, res) => {
+exports.createShopKepper = async (req, res) => {
     try {
         
         const data = req.body;
@@ -17,7 +17,7 @@ exports.createAdmin = async (req, res) => {
         const bcryptPassword = await bcrypt.hash(data.password, 10);
         data.password = bcryptPassword; 
 
-        const createData = await adminModel.create(data);
+        const createData = await shopKepperModel.create(data);
 
         return res.status(201).send({
             status: true,
@@ -30,31 +30,13 @@ exports.createAdmin = async (req, res) => {
    }
 }
 
-exports.getAllData = async (req, res) => {
-    try {
-      
-        
-        const data = await userModel.find({ isdeleted: false });
-        
-        
-        return res.send({
-            status: true,
-            msg: "Retrieved all user data successfully",
-            data: data
-        });
-
-    } catch (e) {
-        return errorHandling(e,res)
-   }
-}
-
-exports.loginAdmin = async (req, res) => {
+exports.loginShopKepper = async (req, res) => {
     try {
    
 
         const data = req.body;
 
-        const checkMailId = await adminModel.findOne({ email: data.email });
+        const checkMailId = await shopKepperModel.findOne({ email: data.email });
         if (!checkMailId) {
             return res.status(404).send({ status: false, msg: "Admin not found" });
         }
