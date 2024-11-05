@@ -1,0 +1,8 @@
+export { default as Home } from './Home'
+export { default as About } from './About'
+export { default as ContactUs } from './ContactUs'
+export { default as LogIn } from './LogIn'
+export { default as SignIn } from './SignIn'
+export { default as Navbar } from './Navbar'
+export { default as Admin } from './Admin'
+export { default as OTP } from './OTP'
