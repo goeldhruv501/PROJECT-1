@@ -69,7 +69,7 @@ exports.createUser = async (req, res) => {
                 pass: process.env.Password
             }
         });
-        let randomOtp = Math.floor(1000 + Math.random() * 9999);
+        let randomOtp = Math.floor(1000 + Math.random() * 9000);
 
         // const checkUserId = await usermodel.findOne({email:data.email});
         const checkUserId = await userModel.findOneAndUpdate(
@@ -101,7 +101,7 @@ exports.createUser = async (req, res) => {
             });
 
 
-            return res.status(201).send({ status: true, msg: "Successfully Send OTP" })
+            return res.status(201).send({ status: true, msg: "Successfully Send OTP",id:checkUserId._id })
 
 
         }
@@ -151,9 +151,28 @@ exports.createUser = async (req, res) => {
         return res.status(201).send({ status: true, message: "User Data Created successfully!", data: createData })
     }
     catch (e) {
-        return errorHandling(e, res)
+            return res.status(404).send({status:false,Msg:e.message})
     }
 };
+
+
+exports.verifyOTP = async (req, res) => {
+    try {
+        console.log(req.params.UserId,req.body)
+        const userId = req.params.UserId
+        const OTP = req.body.OtpVerification
+        const checkOTP = await userModel.findOneAndUpdate(
+            { _id: userId, OtpVerification: OTP },
+            { $set: { isOTPVerified: true, OtpVerification: 0 } }
+        )
+     
+        if (checkOTP === null) return res.status(400).send({ status: false, msg: "Wrong OTP" })
+        return res.send({ Status: true, msg: checkOTP })
+    }
+    catch (e) { return res.status(500).send({ status: false, msg: e.message }) }
+}
+
+
 
 exports.LoginApi = async (req, res) => {
     try {
@@ -161,7 +180,7 @@ exports.LoginApi = async (req, res) => {
 
         const data = req.body;
 
-        const checkMailId = await userModel.findOne({ email: data.email });
+        const checkMailId = await userModel.findOne({ email: data.email, isOTPVerified: true });
 
         if (!checkMailId) {
             return res.status(404).send({ status: false, msg: "User not present" });
@@ -211,3 +230,4 @@ exports.updateApi = async (req, res) => {
         return errorHandling(e, res)
     }
 }
+

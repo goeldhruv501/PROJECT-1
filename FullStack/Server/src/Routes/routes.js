@@ -1,6 +1,6 @@
 const express = require('express');
 const Router = express.Router();
-const { createUser, LoginApi, updateApi } = require('../Controller/userController');
+const { createUser, LoginApi, updateApi,verifyOTP } = require('../Controller/userController');
 const { createAdmin, getAllData, deleteUserApi, loginAdmin } = require('../Controller/adminController');
 const {createShopKepper,loginShopKepper} = require('../Controller/shopKepperController')
 const { authenticate, Authorisation } = require('../middleware/userAuthor');
@@ -12,6 +12,7 @@ const upload = multer({ storage: multer.diskStorage({}) });
 // User API Routes
 Router.post('/createUser', upload.single('profileImg'), createUser);
 Router.post('/LoginApi', upload.single(), LoginApi);
+Router.post('/verifyOTP/:UserId', upload.single(),verifyOTP) 
 Router.put('/updateApi/:UserId', authenticate, Authorisation, upload.single(), updateApi);
 
 // Admin API Routes

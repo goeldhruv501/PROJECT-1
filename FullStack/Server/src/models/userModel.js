@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     },
 
     OtpVerification: {
-        type: Number,
+        type: String,
         trim: true
     },
     
