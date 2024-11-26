@@ -26,7 +26,7 @@ exports.createAdmin = async (req, res) => {
         });
 
     } catch (e) {
-        return errorHandling(e,res)
+        return errorhandling(e,res)
    }
 }
 
@@ -82,24 +82,24 @@ exports.loginAdmin = async (req, res) => {
 
 
 
-// exports.deleteUserApi = async (req, res) => {
+exports.deleteUserApi = async (req, res) => {
     
-//     try {
-//         let id = req.params.UserId;
+    try {
+        let id = req.params.UserId;
 
-//         const deleteduser = await userModel.findOneAndUpdate(
-//             { _id: id },
-//             { $set: { isdeleted: true } },
-//             { new: true }
-//         );
+        const deleteduser = await userModel.findOneAndUpdate(
+            { _id: id },
+            { $set: { isdeleted: true } },
+            { new: true }
+        );
 
-//         if (!deleteduser) {
-//             return res.status(404).send({ Status: false, Message: 'User not found' });
-//         }
+        if (!deleteduser) {
+            return res.status(404).send({ Status: false, Message: 'User not found' });
+        }
 
-//         return res.status(200).send({ Status: true, data: deleteduser });
-//     } 
-//     catch (err) {
-//         return res.status(500).send({ Status: false, Message: err.message });
-//     }
-// };
+        return res.status(200).send({ Status: true, data: deleteduser });
+    } 
+    catch (err) {
+        return res.status(500).send({ Status: false, Message: err.message });
+    }
+};

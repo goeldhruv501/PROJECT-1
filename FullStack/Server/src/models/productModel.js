@@ -1,27 +1,35 @@
 const mongoose = require("mongoose");
-const { ValidName, ValidPassword, Validemail } = require('../Validation/allValidation')
-
 const ProductsSchema = new mongoose.Schema(
     {
+        ShopKepperId: {
+            type: String,
+            required: [true, "Please provide the ShopKepperId"],
+            trim: true,
+        },
+
         title: {
             type: String,
             required: [true, "Please provide the title"],
             unique: true,
             trim: true,
         },
+
         description: {
             type: String,
             required: [true, "Please provide the description"],
             trim: true,
         },
+
         gender: {
             type: String,
             require: [true, "Please Choose gender"]
         },
+
         category: {
             type: String,
             required: [true, "Please provide the category"]
         },
+
         price: {
             type: Number,
             required: [true, "Please provide the price"],
@@ -45,16 +53,24 @@ const ProductsSchema = new mongoose.Schema(
         //   message: "Please enter correct currencyFormat",
         // },
 
+        quantiy: {
+            type: String,
+            required: [true, "Please provide the Quantity"],
+            trim: true,
+        },
+
         isFreeShipping: {
             type: Boolean,
             default: false,
             trim: true,
         },
+
         productImage: {
             type: String,
             required: [true, "Please provide the productImage"],
             trim: true,
         },
+
         style: String,
         availableSizes: {
             type: [String],

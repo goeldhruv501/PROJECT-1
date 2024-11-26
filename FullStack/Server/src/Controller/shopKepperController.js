@@ -51,7 +51,7 @@ exports.loginShopKepper = async (req, res) => {
                 adminId: checkMailId._id, 
                 AuthorName: 'Dhruv' 
             },
-            process.env.AdminAcessSecretKey, 
+            process.env.ShopKepperAcessSecretKey, 
             { expiresIn: '12h' } 
         );
 
@@ -64,24 +64,24 @@ exports.loginShopKepper = async (req, res) => {
 
 
 
-// exports.deleteUserApi = async (req, res) => {
+exports.deleteUserApi = async (req, res) => {
     
-//     try {
-//         let id = req.params.UserId;
+    try {
+        let id = req.params.UserId;
 
-//         const deleteduser = await userModel.findOneAndUpdate(
-//             { _id: id },
-//             { $set: { isdeleted: true } },
-//             { new: true }
-//         );
+        const deleteduser = await userModel.findOneAndUpdate(
+            { _id: id },
+            { $set: { isdeleted: true } },
+            { new: true }
+        );
 
-//         if (!deleteduser) {
-//             return res.status(404).send({ Status: false, Message: 'User not found' });
-//         }
+        if (!deleteduser) {
+            return res.status(404).send({ Status: false, Message: 'User not found' });
+        }
 
-//         return res.status(200).send({ Status: true, data: deleteduser });
-//     } 
-//     catch (err) {
-//         return res.status(500).send({ Status: false, Message: err.message });
-//     }
-// };
+        return res.status(200).send({ Status: true, data: deleteduser });
+    } 
+    catch (err) {
+        return res.status(500).send({ Status: false, Message: err.message });
+    }
+};

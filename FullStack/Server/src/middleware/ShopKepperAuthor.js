@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-exports.adminAuthenticate = (req, res, next) => {
+exports.ShopKepperAuthenticate = (req, res, next) => {
     try {
         let token = req.headers["x-api-key"];
 
@@ -9,7 +9,7 @@ exports.adminAuthenticate = (req, res, next) => {
             return res.status(400).send({ status: false, msg: "Token must be present" });
         }
 
-        let decodedToken = jwt.verify(token, process.env.AdminAcessSecretKey);
+        let decodedToken = jwt.verify(token, process.env.ShopKepperAcessSecretKey);
 
         if (!decodedToken) {
             return res.status(400).send({ status: false, msg: "Invalid token" });
@@ -22,7 +22,7 @@ exports.adminAuthenticate = (req, res, next) => {
     }
 }
 
-exports.adminAuthorisation = async (req, res, next) => {
+exports.ShopKepperAuthorisation = async (req, res, next) => {
     try {
         let id = req.body.adminId;
         if (id == req.adminId) {
