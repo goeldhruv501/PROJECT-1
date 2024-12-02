@@ -3,6 +3,7 @@ const Router = express.Router();
 const { createUser, LoginApi, updateApi, verifyOTP } = require('../Controller/userController');
 const { createAdmin, getAllData, deleteUserApi, loginAdmin } = require('../Controller/adminController');
 const { createShopKepper, loginShopKepper } = require('../Controller/shopKepperController')
+const {createProduct,getAllProductdata} = require('../Controller/ProductController')
 const { authenticate, Authorisation } = require('../middleware/userAuthor');
 const { adminAuthenticate, adminAuthorisation } = require('../middleware/adminAuthor');
 const { ShopKepperAuthenticate, ShopKepperAuthorisation } = require('../middleware/ShopKepperAuthor')
@@ -26,6 +27,10 @@ Router.delete('/deleteUserApi/:UserId', upload.single(), adminAuthenticate, admi
 Router.post('/createShopKepper', upload.single(), createShopKepper);
 Router.post('/loginShopKepper', upload.single(), loginShopKepper);
 Router.delete('/deleteUserApi/:UserId', upload.single(), ShopKepperAuthenticate, ShopKepperAuthorisation, deleteUserApi);
+
+// Product API Routes
+Router.post('/createProduct', upload.single("ProductImg"), createProduct);
+Router.get('/getAllProductdata/:getallData', getAllProductdata);
 
 
 // Invalid Route Handler

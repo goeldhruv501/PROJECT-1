@@ -65,15 +65,14 @@ const ProductsSchema = new mongoose.Schema(
             trim: true,
         },
 
-        productImage: {
+        ProductImg: {
             type: String,
-            required: [true, "Please provide the productImage"],
+            required: [false, "Please provide the productImage"],
             trim: true,
         },
 
-        style: String,
         availableSizes: {
-            type: [String],
+            type: String,
             required: [true, "Please provide the availableSizes"],
             enum: {
                 values: ["S", "XS", "M", "X", "L", "XXL", "XL"],

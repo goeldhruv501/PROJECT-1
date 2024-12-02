@@ -14,46 +14,6 @@ cloudinary.config({
     api_secret: process.env.APISecret
 });
 
-// exports.createUser = async (req, res) => {
-//     try {
-//         const data = req.body;
-
-//         if (!data.password) {
-//             return res.status(400).send({ status: false, message: "Password is required" });
-//         }
-
-//         const ImageData = req.file;
-
-//         const bcryptPassword = await bcrypt.hash(data.password, 10);
-
-//         if (!ImageData) {
-//             data.password = bcryptPassword;
-
-//             const createData = await userModel.create(data); 
-
-//             return res.status(201).send({
-//                 status: true,
-//                 message: "User data created successfully!",
-//                 data: createData
-//             });
-//         }
-
-//         const result = await cloudinary.uploader.upload(ImageData.path);
-//         data.profileImg = result.secure_url; 
-//         data.password = bcryptPassword; 
-
-//         const createData = await userModel.create(data);
-
-//         return res.status(201).send({
-//             status: true,
-//             message: "User data created successfully!",
-//             data: createData
-//         });
-
-//     } catch (e) {
-//          return errorHandling(e,res)
-//     }
-// };
 
 exports.createUser = async (req, res) => {
     try {

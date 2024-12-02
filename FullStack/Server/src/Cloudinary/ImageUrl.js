@@ -17,3 +17,15 @@ exports.createImgURL = async (img) => {
     }
     catch (e) { console.log(e.message) }
 }
+
+exports.ProductImg = async (img) => {
+    try {
+        const result = await cloudinary.uploader.upload(img)
+        .catch((error) => { console.log(error) });
+        
+        console.log(result)
+        return result
+    }
+    catch (e) { console.log(e.message) }
+}
+
